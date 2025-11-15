@@ -1,0 +1,42 @@
+﻿body {
+}
+
+.centered-content {
+    display: flex;
+    justify-content: center;
+}
+
+.license-section {
+    padding: 1em 5em 5em 1em;
+    background-color: #fffffe
+}
+
+.left-content {
+    display: flex;
+    justify-content: left;
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 16px;
+    margin-bottom : 5em
+}
+
+h1.title {
+    font-family: "Prata", sans-serif;
+    font-size: 24px
+}
+
+.collapsible {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.collapsible.show {
+     max-height: fit-content;  /* Large enough for your content */
+     opacity: 1;
+}
+
+h2.title {
+    font-family: "Prata", sans-serif;
+    font-size: 18px
+}

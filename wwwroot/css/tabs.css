@@ -1,0 +1,33 @@
+﻿/* Tabs header */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background: #eee;
+    margin-right: 5px;
+}
+
+    .tab.active {
+        background: #fff;
+        border-top: 2px solid #007bff;
+        font-weight: bold;
+    }
+
+.tab-content.active {
+    display: block; /* Show the active tab */
+}
+/* Forms */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+   display: block;
+}
