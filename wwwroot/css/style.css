@@ -1,7 +1,9 @@
-﻿
+﻿* {
+    box-sizing: border-box; /* Ensure padding and margin don't affect width */
+}
+
 body {
     margin: 0;
-    padding: 0;
 }
 
 /* Main container centered on desktop, full width on mobile */
