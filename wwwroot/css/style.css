@@ -1,14 +1,20 @@
-﻿body {
+﻿
+body {
+    margin: 0;
+    padding: 0;
 }
 
+/* Main container centered on desktop, full width on mobile */
 .centered-content {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
+/* Main section */
 .license-section {
     padding: 1em 5em 5em 1em;
-    background-color: #fffffe
+    background-color: #fffffe;
 }
 
 .left-content {
@@ -16,14 +22,22 @@
     justify-content: left;
     font-family: "Source Sans 3", sans-serif;
     font-size: 16px;
-    margin-bottom : 5em
+    margin-bottom: 5em;
+    max-width: 100%;
 }
 
+/* Titles */
 h1.title {
     font-family: "Prata", sans-serif;
-    font-size: 24px
+    font-size: 24px;
 }
 
+h2.title {
+    font-family: "Prata", sans-serif;
+    font-size: 18px;
+}
+
+/* Collapsible content */
 .collapsible {
     overflow: hidden;
     max-height: 0;
@@ -32,11 +46,47 @@ h1.title {
 }
 
 .collapsible.show {
-     max-height: fit-content;  /* Large enough for your content */
-     opacity: 1;
+    max-height: 2000px;
+    opacity: 1;
 }
+/* ======================== */
+/* MOBILE — LARGER TEXT     */
+/* ======================== */
+@media (max-width: 600px) {
 
-h2.title {
-    font-family: "Prata", sans-serif;
-    font-size: 18px
+    /* Wider padding + full width */
+    .license-section {
+        padding: 1.2em;
+    }
+
+    .left-content {
+        flex-direction: column;
+        font-size: 18px; /* <-- Bigger base text */
+        line-height: 1.5;
+        margin-bottom: 2em;
+    }
+
+    /* Larger title */
+    h1.title {
+        font-size: 26px; /* <-- Bigger on mobile */
+    }
+
+    h2.title {
+        font-size: 20px;
+    }
+
+    /* Make content comfortable and readable */
+    p, li, span, div {
+        font-size: 18px; /* <-- Bigger default text */
+        line-height: 1.55;
+    }
+
+    /* Avoid horizontal scroll */
+    .centered-content,
+    .license-section,
+    .left-content {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
 }
