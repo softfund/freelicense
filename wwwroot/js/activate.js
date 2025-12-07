@@ -42,50 +42,6 @@ function bindForm(form, actionName) {
     });
 }
 
-/*
-async function onActivateLoad() {
-    let form = document.getElementById("activate-form");
-    if (!form)
-        form = document.getElementById("download-form");
-    if (!form)
-        return;
-
-    window.onActivate = function (captchaToken) {
-        // Start async operation - no reCAPTCHA reset needed for activation
-        const formData = new FormData(form);
-        var action = formData.get("action");
-
-        if (action === "register") {
-            performActivation(formData, captchaToken).then(() => {
-                try {
-                    // grecaptcha.reset();
-                }
-                catch (error) {
-                    console.warn("Captcha reset failed:", error);
-                }
-            });
-        }
-
-        if (action === "download") {
-            performDownload(formData, captchaToken).then(() => {
-                try {
-                    // grecaptcha.reset();
-                }
-                catch (error) {
-                    console.warn("Captcha reset failed:", error);
-                }
-            });
-        }
-    };
-
-    // Prevent native form submission and trigger reCAPTCHA
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        onActivate();
-        //  grecaptcha.execute(); don't use captcha
-    });
-}
-*/
 async function performActivation(formData, captchaToken) {
     try {        
         const jwt = localStorage.getItem("jwt");
@@ -100,10 +56,16 @@ async function performActivation(formData, captchaToken) {
         });
         
         console.log("Activation response status:", response.status);
+
+
         if (!response.ok) {
             const errorText = await response.text();
             console.error("Activation failed:", response.status, errorText);
             alert("Не вдалося виконати активацію. Status: " + response.status);
+            // Handle unauthorized (session expired, no token, etc.)
+            if (response.status === 401) {
+                window.location.href = "/";   // ⬅️ Redirect to home page
+            }
             return;
         }
         
@@ -123,18 +85,33 @@ async function performActivation(formData, captchaToken) {
     }
 }
 
-async function performDownload(form, captchaToken) {
+async function performDownload(formData, captchaToken) {
     try {
         const jwt = localStorage.getItem("jwt");
         // console.log("JWT token:", jwt ? "present" : "missing");
         const headers = jwt ? { "Authorization": "Bearer " + jwt } : {};
-        var resp = await fetch("/api/download?version=${version}", { method: "POST", headers: headers, body: formData });
-        if (!resp.ok) { alert("Не вдалося завантажити програму."); return; }
-        const blob = await response.blob();
+        const version = document.getElementById("version").value.trim();  
+
+        const downloadUrl = `/api/download/uk?version=${encodeURIComponent(version)}`;
+
+        // console.log("Fetch URL:", downloadUrl); 
+
+        var resp = await fetch(downloadUrl, { method: "GET", headers: headers });
+        if (!resp.ok)
+        {
+            alert("Не вдалося завантажити програму.");
+            // Handle unauthorized (session expired, no token, etc.)
+            if (response.status === 401) {
+                window.location.href = "/";   // ⬅️ Redirect to home page
+            }
+            return;
+        }
+        
+        const blob = await resp.blob();
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "${version}.zip"; // your file name
+        a.download = `${version}.zip`; // your file name
         a.click();
         URL.revokeObjectURL(url);
     }
