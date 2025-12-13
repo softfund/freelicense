@@ -8,11 +8,11 @@
     </div>
     <div>
         <form id="download-form" class="centered-content">
-            <input list="Versions" id="version" name="version" placeholder="Версія програми" required />
-            <datalist id="Versions">
-                <option value="Eol2026[h]">
-                <option value="Eol2026">
-            </datalist>
+            <select id="version" name="version" class="plain-select" required>
+                <option value="" disabled selected>Виберіть версію для завантаження</option>
+                <option value="Eol2026">Eol2026</option>
+                <option value="Eol2026[h]">Eol2026[h]</option>
+            </select>
             <div class="button-container">
                 <button id="download" name="action" type="submit">Завантажити</button>
             </div>
@@ -25,22 +25,18 @@
     </div>
     <div>
         <form id="activate-form" class="centered-content">
-            <input list="Versions2" id="version2" name="version2" placeholder="Версія програми" required />
+            <select id="version2" name="version2" class="plain-select" required>
+                <option value="" disabled selected>Виберіть версію для активації</option>
+                <option value="Eol2026[h]">Eol2026[h]</option>
+                <option value="Eol2026">Eol2026</option>
+                <option value="Eol2025[h]">Eol2025[h]</option>
+                <option value="Eol2025">Eol2025</option>
+            </select>
+
             <input type="text" id="registrationNumber" name="registrationNumber" placeholder="Реєстраційний номер" required />
             <input type="text" id="activationCode" name="activationCode" placeholder="Код активації" disabled />
 
-
-            <datalist id="Versions2">
-                <option value="Eol2026[h]">
-                <option value="Eol2026">
-                <option value="Eol2025[h]">
-                <option value="Eol2025">
-            </datalist>
-
             <div class="button-container">
-                <!--
-                   <button id="register" class="g-recaptcha" data-sitekey="6LfCzE4rAAAAACae07X5F4c2ZW_pMKWiIzPe_F8D" data-callback="onActivate" data-size="invisible">Активація</button>
-                -->
                 <button id="register" name="action" type="submit">Активація</button>
             </div>
         </form>

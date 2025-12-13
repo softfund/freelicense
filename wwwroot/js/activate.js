@@ -61,11 +61,17 @@ async function performActivation(formData, captchaToken) {
         if (!response.ok) {
             const errorText = await response.text();
             console.error("Activation failed:", response.status, errorText);
-            alert("Не вдалося виконати активацію. Status: " + response.status);
+
             // Handle unauthorized (session expired, no token, etc.)
             if (response.status === 401) {
                 window.location.href = "/";   // ⬅️ Redirect to home page
+                alert("Час підтвердити ліцензійнй умови.");
             }
+            else
+            {
+                alert("Сталася помилка під час активації. Статус: " + response.status);
+            }
+
             return;
         }
         
@@ -79,8 +85,6 @@ async function performActivation(formData, captchaToken) {
         console.log("Activation successful!");
         
     } catch (err) {
-        console.error("Activation error:", err);
-        alert("Сталася помилка під час активації.");
         throw err; // Re-throw so .catch() in onActivate can handle it
     }
 }
@@ -94,16 +98,22 @@ async function performDownload(formData, captchaToken) {
 
         const downloadUrl = `/api/download/uk?version=${encodeURIComponent(version)}`;
 
-        // console.log("Fetch URL:", downloadUrl); 
-
         var resp = await fetch(downloadUrl, { method: "GET", headers: headers });
         if (!resp.ok)
-        {
-            alert("Не вдалося завантажити програму.");
+        {   
+            const errorText = await resp.text();
+            console.error("Activation failed:", resp.status, errorText);
+
             // Handle unauthorized (session expired, no token, etc.)
-            if (response.status === 401) {
+            if (resp.status === 401) {
+                alert("Час підтвердити ліцензійні умови.");
                 window.location.href = "/";   // ⬅️ Redirect to home page
             }
+            else
+            {
+                alert("Сталася помилка під час завантаження.");
+            }
+
             return;
         }
         
@@ -117,7 +127,6 @@ async function performDownload(formData, captchaToken) {
     }
     catch (err) {
         console.error("Download error:", err);
-        alert("Сталася помилка під час завантаження.");
         throw err; // Re-throw so .catch() in onActivate can handle it
     }
 }

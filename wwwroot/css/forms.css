@@ -92,3 +92,24 @@ h3.small-caps {
     border-bottom: none !important;
 }
 
+.plain-select {
+    width: 100%;
+    padding: 2px 0px;
+    font-size: 14px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.plain-select:focus {
+    border-color: #666;
+    outline: none;
+}
+
+/* ONLY when placeholder is selected */
+.plain-select[value=""] {
+    color: #888;
+    -webkit-text-fill-color: #888;
+}
+
