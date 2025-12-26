@@ -69,7 +69,7 @@ async function performActivation(formData, captchaToken) {
             }
             else
             {
-                alert("Сталася помилка під час активації. Статус: " + response.status);
+                alert("Сталася помилка під час активації." + errorText);
             }
 
             return;
@@ -111,7 +111,7 @@ async function performDownload(formData, captchaToken) {
             }
             else
             {
-                alert("Сталася помилка під час завантаження.");
+                alert("Сталася помилка під час завантаження." + errorText);
             }
 
             return;

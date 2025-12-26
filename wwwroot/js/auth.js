@@ -11,13 +11,13 @@
         const data = await response.json();
         var responseNext;
         if ((responseNext = await Registration(data.token, false)) === null) {
-            throw new Error('Access denied!');
+            throw new Error('Доступ не наданий!');
         }
         localStorage.setItem("jwt", data.token);
 
         return responseNext;
     } else {
-        throw new Error('Login failed!');
+        throw new Error('Помилка аутентифікації');
     }
 }
 
