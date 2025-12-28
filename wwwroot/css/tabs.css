@@ -14,11 +14,11 @@
     margin-right: 5px;
 }
 
-    .tab.active {
-        background: #fff;
-        border-top: 2px solid #007bff;
-        font-weight: bold;
-    }
+.tab.active {
+    background: #fff;
+    border-top: 2px solid #007bff;
+    font-weight: bold;
+}
 
 .tab-content.active {
     display: block; /* Show the active tab */

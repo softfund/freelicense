@@ -31,23 +31,35 @@ button {
         letter-spacing: 2px;
     }
 
-.onclic {
-    width: 40px;
-    border-color: #bbb;
-    border-width: 3px;
-    font-size: 0;
-    border-left-color: #1ecd97;
-    animation: rotating 2s 0.25s linear infinite;
+    #download.loading {
+        background: #fff;
+        border: 2px solid #444447;
+        color: black;
+        cursor: progress; 
+    }
+
+    .wait {
+        display: none;
+        animation: blink 2s linear infinite;
+    }
+
+    .loading .label {
+        display: none;
+    }
+
+    .loading .wait {
+        display: inline;
+    }
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
 }
-
-    .onclic:after {
-        content: "";
-    }
-
-    .onclic:hover {
-        color: #1ecd97;
-        background: white;
-    }
 
 .validate {
     font-size: 13px;
@@ -55,10 +67,10 @@ button {
     background: #1ecd97;
 }
 
-    .validate:after {
-        font-family: 'FontAwesome';
-        content: "\f00c";
-    }
+.validate:after {
+    font-family: 'FontAwesome';
+    content: "\f00c";
+}
 
 @keyframes rotating {
     from {
@@ -102,14 +114,13 @@ h3.small-caps {
     cursor: pointer;
 }
 
-.plain-select:focus {
-    border-color: #666;
-    outline: none;
-}
+    .plain-select:focus {
+        border-color: #666;
+        outline: none;
+    }
 
-/* ONLY when placeholder is selected */
-.plain-select[value=""] {
-    color: #888;
-    -webkit-text-fill-color: #888;
-}
-
+    /* ONLY when placeholder is selected */
+    .plain-select[value=""] {
+        color: #888;
+        -webkit-text-fill-color: #888;
+    }

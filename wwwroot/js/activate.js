@@ -43,18 +43,18 @@ function bindForm(form, actionName) {
 }
 
 async function performActivation(formData, captchaToken) {
-    try {        
+    try {
         const jwt = localStorage.getItem("jwt");
         // console.log("JWT token:", jwt ? "present" : "missing");
         const headers = jwt ? { "Authorization": "Bearer " + jwt } : {};
         // console.log("Sending activation request to /api/activate/uk");
-        
+
         const response = await fetch("/api/activate/uk", {
             method: "POST",
             headers: headers,
             body: formData
         });
-        
+
         console.log("Activation response status:", response.status);
 
 
@@ -67,14 +67,13 @@ async function performActivation(formData, captchaToken) {
                 window.location.href = "/";   // ⬅️ Redirect to home page
                 alert("Час підтвердити ліцензійнй умови.");
             }
-            else
-            {
+            else {
                 alert("Сталася помилка під час активації." + errorText);
             }
 
             return;
         }
-        
+
         const result = await response.json();
         const codeInput = document.getElementById("activationCode");
         if (codeInput) {
@@ -83,24 +82,26 @@ async function performActivation(formData, captchaToken) {
         }
 
         console.log("Activation successful!");
-        
+
     } catch (err) {
         throw err; // Re-throw so .catch() in onActivate can handle it
     }
 }
 
 async function performDownload(formData, captchaToken) {
+    const btn = document.getElementById("download");
+    btn.classList.add("loading");
+    btn.disabled = true;
     try {
         const jwt = localStorage.getItem("jwt");
         // console.log("JWT token:", jwt ? "present" : "missing");
         const headers = jwt ? { "Authorization": "Bearer " + jwt } : {};
-        const version = document.getElementById("version").value.trim();  
+        const version = document.getElementById("version").value.trim();
 
         const downloadUrl = `/api/download/uk?version=${encodeURIComponent(version)}`;
 
         var resp = await fetch(downloadUrl, { method: "GET", headers: headers });
-        if (!resp.ok)
-        {   
+        if (!resp.ok) {
             const errorText = await resp.text();
             console.error("Activation failed:", resp.status, errorText);
 
@@ -109,14 +110,13 @@ async function performDownload(formData, captchaToken) {
                 alert("Час підтвердити ліцензійні умови.");
                 window.location.href = "/";   // ⬅️ Redirect to home page
             }
-            else
-            {
+            else {
                 alert("Сталася помилка під час завантаження." + errorText);
             }
 
             return;
         }
-        
+
         const blob = await resp.blob();
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -129,5 +129,10 @@ async function performDownload(formData, captchaToken) {
         console.error("Download error:", err);
         throw err; // Re-throw so .catch() in onActivate can handle it
     }
+    finally {
+        btn.classList.remove("loading");
+        btn.disabled = false;
+    }
+
 }
 
